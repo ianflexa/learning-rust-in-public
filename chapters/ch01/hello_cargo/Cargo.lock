@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "learning-rust-in-public"
+name = "hello_cargo"
 version = "0.1.0"
