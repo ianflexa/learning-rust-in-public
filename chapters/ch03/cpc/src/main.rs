@@ -37,9 +37,47 @@ fn main() {
     // let spaces = spaces.len();
 
 
+    // Data Types
+
+    // let guess = "42".parse().expect("Not a number!");
+
+    //  let guess: /* Type */ = "42".parse().expect("Not a number!");
+    //           ++++++++++++
+
+    let guess: u32 = "42".parse().expect("Not a number!"); // : u32 type annotation
+    println!("{}", guess);
+
+    let x = 2.0; // f64
+
+    let y: f32 = 3.0; // f32
+
+    let c = 'z';
+    let z: char = 'ℤ'; // with explicit type annotation
+
+    // Compound Types
+
+    let tup: (i32, f64, u8) = (100, 100.0, 1);
+    let (x, y, z) = tup;
+    println!("The value of y is: {}", y);
+
+    let one = tup.2;
+    println!("one: {}", one);
+
+
+    // Array Type
+
+    // array’s type using square brackets with the type of each element, a semicolon, and then the number of elements in the array,
+    let a: [i32; 5] = [1, 2, 3, 4, 5];
+
+    println!("first index: {}", a[0]);
+
+    let a = [3; 5]; // same as:  let a = [3, 3, 3, 3, 3]
+
     //              ***** notes *****
     /*
         - Rust compiler guarantees that when you state that a value won’t change
         - not possible to use `mut` with constants
+        - char literals with single quotes, as opposed to string literals
+        - char type is four bytes in size
     */
 }
