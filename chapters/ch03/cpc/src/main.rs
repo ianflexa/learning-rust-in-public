@@ -73,11 +73,22 @@ fn main() {
 
     let a = [3; 5]; // same as:  let a = [3, 3, 3, 3, 3]
 
+    // Functions 
+
+    another_function();
+
+
     //              ***** notes *****
     /*
         - Rust compiler guarantees that when you state that a value won’t change
         - not possible to use `mut` with constants
         - char literals with single quotes, as opposed to string literals
         - char type is four bytes in size
+        - for function and variable names we use snake_case
+        - Rust doesn’t care where you define your functions
     */
+}
+
+fn another_function() {
+    println!("Another fn!");
 }
