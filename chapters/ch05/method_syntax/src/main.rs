@@ -4,8 +4,10 @@ struct Rectangle {
     height: u32,
 }
 
-impl Rectangle { // implementation block for Rectangle
-    fn area(&self) -> u32 { // self in the signature
+impl Rectangle {
+    // implementation block for Rectangle
+    fn area(&self) -> u32 {
+        // self in the signature
         self.width * self.height
     }
     fn width(&self) -> bool {
@@ -16,31 +18,37 @@ impl Rectangle { // implementation block for Rectangle
     }
 
     // Associated Functions
-    fn square(size: u32) -> Self { // alias for the type that appears after the impl
-        Self { width: size, height: size }
+    fn square(size: u32) -> Self {
+        // alias for the type that appears after the impl
+        Self {
+            width: size,
+            height: size,
+        }
     }
 }
 fn main() {
     let rect1 = Rectangle {
         width: 30,
-        height: 50
+        height: 50,
     };
 
-    println!("The area of the rectangle is {} square pixels", rect1.area());
+    println!(
+        "The area of the rectangle is {} square pixels",
+        rect1.area()
+    );
 
     if rect1.width() {
         println!("The reactangle has a nonzero width; it is {}", rect1.width);
-
     }
 
     let rect2 = Rectangle {
         width: 10,
-        height: 30
+        height: 30,
     };
 
     let rect3 = Rectangle {
         width: 30,
-        height: 70
+        height: 70,
     };
 
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
@@ -49,9 +57,7 @@ fn main() {
     // associated function
     let sqr1 = Rectangle::square(10);
     println!("The area of the square is {} square pixels", sqr1.area());
- 
 }
-
 
 // ***** notes *****
 /*
