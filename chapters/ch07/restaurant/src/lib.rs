@@ -85,7 +85,7 @@ mod back_of_house {
     }
 }
 
-pub fn eat_at_restaurant() {
+pub fn eat_at_restaurant2() {
     let mut meal = back_of_house::Breakfast::summer("Rye");
     // change the bread
     meal.toast = String::from("Wheat");
@@ -97,6 +97,92 @@ pub fn eat_at_restaurant() {
     let order1 = back_of_house::Appetizer::Salad;
     let order2 = back_of_house::Appetizer::Soup;
 }
+
+// Bringing Paths into Scope with the use Keyword
+
+use front_of_house::hosting; // is similar to creating a symbolic link in the filesystem.
+
+pub fn eat_at_restaurant3() {
+    hosting::add_to_waitlist(); // `hosting` is now a valid name in that scope
+}
+
+// mod customer {
+//       <------ need to declare inside the mod scope
+//     pub fn eat_at_restaurant() {
+//         hosting::add_to_waitlist()
+//        ^^^^^^^ use of undeclared crate or module `hosting`
+//     }
+// }
+
+
+mod customer {
+    use crate::front_of_house::hosting;
+
+    pub fn eat_at_restaurant() {
+        hosting::add_to_waitlist();
+    }
+}
+
+use std::collections::HashMap; // when bringing in structs, enums, and other items with use, it’s idiomatic to specify the full path
+
+fn hashmap() {
+    let mut map = HashMap::new();
+    map.insert(1, 2);
+}
+
+
+// bringin two items w the same name into scope.
+/*
+    use std::fmt;
+    use std::io;
+
+    fn function1() -> fmt::Result {
+        // --snip--
+        Result::Ok(())
+    }
+
+    fn function2() -> io::Result<()> {
+        // --snip--
+        Result::Ok(())
+    }
+ */
+
+
+// Providing New Names with the `as` Keyword
+
+use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -> Result {
+    Result::Ok(())
+}
+
+fn function2() -> IoResult<()> {
+    IoResult::Ok(())
+}
+
+// Re-exporting Names with `pub use`
+
+mod front_of_house1 {
+    pub mod hosting1 {
+        pub fn add_to_waitlist() {}
+    }
+}
+
+pub use crate::front_of_house1::hosting1; // re-exporting
+
+pub fn eat_at_restaurant() {
+    hosting::add_to_waitlist();
+}
+
+// Using Nested Paths to clean up large `use` lists
+use std::{cmp::Ordering , i128};
+
+use std::io::{self, Write}; // brings std::io and std::io::Write into scope.
+
+// The Glob Operator
+
+use std::collections::*; // brings all public items defined in a path into scope.
 
 // ***** notes *****
 
@@ -110,4 +196,6 @@ pub fn eat_at_restaurant() {
     - Using super allows us to reference an item that we know is in the parent module.
     -  If we use pub before a struct definition, we make the struct public, but the struct’s fields will still be private.
     -  if we make an enum public, all of its variants are then public.
+    - `use` only creates the shortcut for the particular scope in which the use occurs.
+    - `Glob` can make it harder to tell what names are in scope and where a name used in your program was defined.
 */
