@@ -195,6 +195,15 @@ pub fn eat_at_restaurant_final() {
     hosting_final::add_to_waitlist()
 }
 
+// Alternate File Paths
+
+/* 
+    src/front_of_house/mod.rs (older style, still supported path)
+
+    src/front_of_house/hosting/mod.rs (older style, still supported path)
+
+ */
+
 // ***** notes *****
 
 /*
