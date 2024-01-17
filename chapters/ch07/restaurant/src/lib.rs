@@ -184,6 +184,17 @@ use std::io::{self, Write}; // brings std::io and std::io::Write into scope.
 
 use std::collections::*; // brings all public items defined in a path into scope.
 
+
+// Separating Modules into Different Files
+
+// only need to load a file using a `mod` declaration once in your module tree.
+mod front_of_house_final;
+pub use crate::front_of_house_final::hosting_final;
+
+pub fn eat_at_restaurant_final() {
+    hosting_final::add_to_waitlist()
+}
+
 // ***** notes *****
 
 /*
