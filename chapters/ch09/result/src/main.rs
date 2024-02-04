@@ -1,8 +1,8 @@
 use std::fs::File;
-use std::io::ErrorKind;
+use std::io::{self, Read, ErrorKind};
 
 #[warn(dead_code)]
-enum Result<T, E> {
+enum ResultEg<T, E> {
     // generic types, T = value that will be returned in a success, E = error that will be returned in a failure
     Ok(T),  // Ok variant
     Err(E), // Err variant
@@ -48,10 +48,54 @@ fn main() {
         }
     });
 
+    // shortcuts for Panic on Error: `unwrap` and `expect`
+
+    // let greeting_file = File::open("hello.txt").unwrap();
+    /*
+        thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Os {
+        code: 2, kind: NotFound, message: "No such file or directory" }'
+
+     */
+
+    let greeting_file = File::open("hello.txt").expect("hello.txt should exist");
+    /*
+        thread 'main' panicked at 'Problem opening the file: Os { code: 2, kind: NotFound, message: "No such file or directory" }', src/main.rs:16:23
+    
+     */
+
+
+
 }
+
+    // Propagating Errors
+fn read_username_from_file() -> Result<String, io::Error> {
+    let username_file_result = File::open("hello.txt");
+
+    let mut username_file = match username_file_result {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+        
+    };
+
+    let mut username = String::new();
+
+    match username_file.read_to_string(&mut username) {
+        Ok(_) => Ok(username),
+        Err(e) => Err(e),
+    }
+}
+
+fn read_username_from_file_two() -> Result<String, io::Error> {
+    let mut username_file = File::open("hey.txt")?; // he ? placed after a Result value is defined to work in almost the same way as the match expressions 
+    let mut username = String::new();
+    username_file.read_to_string(&mut username)?; // useful when a function returns one error type to represent all the ways a function might fail
+    Ok(username)
+}
+
 
 // ***** notes *****
 /*
-
+    - most Rustaceans choose expect rather than unwrap and give more context about why the operation is expected to always succeed. 
+    - propagating the error: When a function’s implementation calls something that might fail, instead of handling the error within the function itself, you can return the error to the calling code so that it can decide what to do.
 
 */
